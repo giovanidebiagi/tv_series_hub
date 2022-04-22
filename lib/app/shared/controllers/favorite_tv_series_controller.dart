@@ -29,18 +29,7 @@ class FavoriteTvSeriesController extends ChangeNotifier {
         listOfFavoriteTvSeries.add(tvSeries);
       }
     }
+
+    listOfFavoriteTvSeries.sort((a, b) => a.name.compareTo(b.name));
   }
-
-  // Future updateListOfFavoriteTvSeries() async {
-  //   await createListOfFavoriteTvSeries();
-
-  //   notifyListeners();
-  // }
-
-  // Future removeTvSeriesFromMyFavoritesList(
-  //     {required TvSeriesModel tvSeries}) async {
-  //   await iLocalStorageRepository.delete(tvSeries.id);
-
-  //   createListOfFavoriteTvSeries();
-  // }
 }
