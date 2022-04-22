@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tv_series_hub/app/data/repositories/i_tv_series_data_source_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/local_storage_repositories/i_local_storage_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/i_tv_series_data_source_repository.dart';
 
 class ListOfAllTvSeriesByPageController with ChangeNotifier {
   final ITvSeriesDataSourceRepository iTvSeriesDataSourceRepository;
+  final ILocalStorageRepository iLocalStorageRepository;
+
+  ListOfAllTvSeriesByPageController(
+      {required this.iTvSeriesDataSourceRepository,
+      required this.iLocalStorageRepository});
 
   bool isFetchingAllTvSeriesByPage = false;
 
@@ -37,12 +43,19 @@ class ListOfAllTvSeriesByPageController with ChangeNotifier {
     }
   }
 
-  ListOfAllTvSeriesByPageController(
-      {required this.iTvSeriesDataSourceRepository});
-
   Future<void> fetchAllTvSeriesByPage() async {
     listOfAllTvSeriesByPage = await iTvSeriesDataSourceRepository
         .getListOfTvSeriesByPage(page: currentPage);
+
+    for (var tvSeries in listOfAllTvSeriesByPage) {
+      var _tvSeries = await iLocalStorageRepository.get(tvSeries.id);
+
+      if (_tvSeries != null) {
+        tvSeries.isFavorite = _tvSeries.isFavorite;
+      } else {
+        tvSeries.isFavorite = false;
+      }
+    }
 
     notifyListeners();
   }

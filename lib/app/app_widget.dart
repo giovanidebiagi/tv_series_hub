@@ -1,30 +1,51 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_series_hub/app/data/repositories/tvmaze_repository/tvmaze_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/local_storage_repositories/hive_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/local_storage_repositories/i_local_storage_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/tvmaze_repository/tvmaze_repository.dart';
 import 'package:tv_series_hub/app/modules/episode/episode_page.dart';
 import 'package:tv_series_hub/app/modules/home/components/list_of_all_tv_series_by_page/list_of_all_tv_series_by_page_controller.dart';
+import 'package:tv_series_hub/app/modules/my_favorite_tv_series/my_favorite_tv_series_page.dart';
 import 'package:tv_series_hub/app/modules/search/search_page.dart';
 import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_list_of_episodes_by_season/tv_series_list_of_episodes_by_season_controller.dart';
 import 'package:tv_series_hub/app/modules/tv_series/tv_series_page.dart';
 import 'package:tv_series_hub/app/services/http_services/dio_service.dart';
 import 'package:tv_series_hub/app/shared/app_theme.dart';
+import 'package:tv_series_hub/app/shared/controllers/favorite_tv_series_controller.dart';
 import 'package:tv_series_hub/app/shared/routes.dart';
 import 'modules/home/home_page.dart';
 import 'modules/search/components/tv_series_search_widget/tv_series_search_controller.dart';
 
-class AppWidget extends StatelessWidget {
-  const AppWidget({Key? key}) : super(key: key);
+class AppWidget extends StatefulWidget {
+  const AppWidget({Key? key, required this.iLocalStorageRepository})
+      : super(key: key);
+
+  final ILocalStorageRepository iLocalStorageRepository;
+
+  @override
+  State<AppWidget> createState() => _AppWidgetState();
+}
+
+class _AppWidgetState extends State<AppWidget> {
+  @override
+  void dispose() {
+    widget.iLocalStorageRepository.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<ILocalStorageRepository>(
+            create: (_) => widget.iLocalStorageRepository),
         ChangeNotifierProvider<ListOfAllTvSeriesByPageController>(
           create: (_) => ListOfAllTvSeriesByPageController(
             iTvSeriesDataSourceRepository: TvmazeRepository(
               httpService: DioService(),
             ),
+            iLocalStorageRepository: widget.iLocalStorageRepository,
           ),
         ),
         ChangeNotifierProvider<TvSeriesSearchController>(
@@ -39,6 +60,11 @@ class AppWidget extends StatelessWidget {
             iTvSeriesDataSourceRepository: TvmazeRepository(
               httpService: DioService(),
             ),
+          ),
+        ),
+        ChangeNotifierProvider<FavoriteTvSeriesController>(
+          create: (_) => FavoriteTvSeriesController(
+            iLocalStorageRepository: widget.iLocalStorageRepository,
           ),
         )
       ],
@@ -64,7 +90,9 @@ class AppWidget extends StatelessWidget {
           Routes.homePage: (context) => const HomePage(),
           Routes.searchPage: (context) => const SearchPage(),
           Routes.tvSeriesPage: (context) => const TvSeriesPage(),
-          Routes.episodePage: (context) => const EpisodePage()
+          Routes.episodePage: (context) => const EpisodePage(),
+          Routes.myFavoriteTvSeriesPage: (context) =>
+              const MyFavoriteTvSeriesPage(),
         },
       ),
     );

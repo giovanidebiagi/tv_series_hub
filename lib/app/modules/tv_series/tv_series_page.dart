@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series_hub/app/data/models/tv_series_model.dart';
+import 'package:tv_series_hub/app/modules/tv_series/components/set_as_favorite_button.dart';
 import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_details_widget.dart';
 import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_list_of_episodes_by_season/tv_series_list_of_seasons_widget/tv_series_list_of_seasons_widget.dart';
 import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_summary_widget.dart';
@@ -13,7 +14,14 @@ class TvSeriesPage extends StatelessWidget {
     final TvSeriesModel tvSeries =
         ModalRoute.of(context)!.settings.arguments as TvSeriesModel;
 
+    print('tvSeries.isFavorite: ${tvSeries.isFavorite}');
+
     return AppPageTemplate(
+      appBarActions: [
+        SetAsFavoriteButton(
+          tvSeries: tvSeries,
+        ),
+      ],
       pageTitle: tvSeries.name,
       body: SingleChildScrollView(
         child: Column(

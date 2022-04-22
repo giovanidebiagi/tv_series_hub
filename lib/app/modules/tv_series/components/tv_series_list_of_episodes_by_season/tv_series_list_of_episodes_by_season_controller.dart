@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tv_series_hub/app/data/models/tv_series_season_model.dart';
 
 import '../../../../data/models/tv_series_episode_model.dart';
-import '../../../../data/repositories/i_tv_series_data_source_repository.dart';
+import '../../../../data/repositories/tv_series_data_source_repositories/i_tv_series_data_source_repository.dart';
 
 class TvSeriesListOfEpisodesBySeasonController with ChangeNotifier {
   TvSeriesListOfEpisodesBySeasonController(

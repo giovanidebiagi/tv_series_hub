@@ -1,6 +1,6 @@
-import 'package:tv_series_hub/app/data/repositories/i_tv_series_data_source_repository.dart';
-import 'package:tv_series_hub/app/data/repositories/repositories_constants/repositories_constants.dart';
-import 'package:tv_series_hub/app/data/repositories/tvmaze_repository/tvmaze_repository_utils.dart';
+import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/i_tv_series_data_source_repository.dart';
+import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/tvmaze_repository/tvmaze_api_constants.dart';
+import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/tvmaze_repository/tvmaze_repository_utils.dart';
 import 'package:tv_series_hub/app/services/http_services/http_errors.dart';
 import 'package:tv_series_hub/app/services/http_services/i_http_service.dart';
 

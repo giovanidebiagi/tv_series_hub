@@ -1,23 +1,63 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
 
-class TvSeriesModel {
+part 'tv_series_model.g.dart';
+
+@HiveType(typeId: 0)
+class TvSeriesModel extends HiveObject {
+  @HiveField(0)
   String? imageUrl;
+
+  @HiveField(1)
   double? rating;
+
+  @HiveField(2)
   int id;
+
+  @HiveField(3)
   String url;
+
+  @HiveField(4)
   String name;
+
+  @HiveField(5)
   String type;
+
+  @HiveField(6)
   String language;
+
+  @HiveField(7)
   List<String> genres;
+
+  @HiveField(8)
   String status;
+
+  @HiveField(9)
   int runTime;
+
+  @HiveField(10)
   int averageRuntime;
+
+  @HiveField(11)
   String premiered;
+
+  @HiveField(12)
   String ended;
+
+  @HiveField(13)
   String officialSite;
+
+  @HiveField(14)
   String? timeItAirs;
+
+  @HiveField(15)
   List<String?>? daysItAirs;
+
+  @HiveField(16)
   String? summary;
+
+  @HiveField(17)
+  bool? isFavorite;
 
   TvSeriesModel({
     this.imageUrl,
@@ -38,46 +78,6 @@ class TvSeriesModel {
     required this.daysItAirs,
     required this.summary,
   });
-
-  TvSeriesModel copyWith({
-    String? imageUrl,
-    double? rating,
-    int? id,
-    String? url,
-    String? name,
-    String? type,
-    String? language,
-    List<String>? genres,
-    String? status,
-    int? runTime,
-    int? averageRuntime,
-    String? premiered,
-    String? ended,
-    String? officialSite,
-    String? timeItAirs,
-    List<String?>? daysItAirs,
-    String? summary,
-  }) {
-    return TvSeriesModel(
-      imageUrl: imageUrl ?? this.imageUrl,
-      rating: rating ?? this.rating,
-      id: id ?? this.id,
-      url: url ?? this.url,
-      name: name ?? this.name,
-      type: type ?? this.type,
-      language: language ?? this.language,
-      genres: genres ?? this.genres,
-      status: status ?? this.status,
-      runTime: runTime ?? this.runTime,
-      averageRuntime: averageRuntime ?? this.averageRuntime,
-      premiered: premiered ?? this.premiered,
-      ended: ended ?? this.ended,
-      officialSite: officialSite ?? this.officialSite,
-      timeItAirs: timeItAirs ?? this.timeItAirs,
-      daysItAirs: daysItAirs ?? this.daysItAirs,
-      summary: summary ?? this.summary,
-    );
-  }
 
   factory TvSeriesModel.fromMap(Map<String, dynamic> map) {
     return TvSeriesModel(

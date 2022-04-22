@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../data/repositories/i_tv_series_data_source_repository.dart';
+import '../../../../data/repositories/tv_series_data_source_repositories/i_tv_series_data_source_repository.dart';
 
 class TvSeriesSearchController with ChangeNotifier {
   final ITvSeriesDataSourceRepository iTvSeriesDataSourceRepository;

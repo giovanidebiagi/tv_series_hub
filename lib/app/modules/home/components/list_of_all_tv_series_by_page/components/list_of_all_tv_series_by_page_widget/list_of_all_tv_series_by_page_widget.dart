@@ -37,7 +37,7 @@ class _ListOfAllTvSeriesByPageWidgetState
               child: Text('All series'),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.48,
               child:
                   listOfAllTvSeriesByPageController.isFetchingAllTvSeriesByPage
                       ? Center(
