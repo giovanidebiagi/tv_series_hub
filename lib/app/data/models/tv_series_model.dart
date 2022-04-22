@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class TvSeriesModel {
   String? imageUrl;
   double? rating;
