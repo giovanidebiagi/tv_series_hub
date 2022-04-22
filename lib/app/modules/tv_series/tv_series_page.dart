@@ -6,8 +6,6 @@ import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_summary
 import 'package:tv_series_hub/app/shared/widgets/app_page_template.dart';
 import 'package:tv_series_hub/app/shared/widgets/image_not_found_widget.dart';
 
-import '../../shared/app_theme.dart';
-
 class TvSeriesPage extends StatelessWidget {
   const TvSeriesPage({Key? key}) : super(key: key);
 
