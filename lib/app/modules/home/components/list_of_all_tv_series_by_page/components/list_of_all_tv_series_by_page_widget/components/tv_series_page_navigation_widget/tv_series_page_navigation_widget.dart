@@ -36,21 +36,6 @@ class TvSeriesPageNavigationWidget extends StatelessWidget {
             color: AppTheme.defaultTextColor,
           ),
         )
-
-//
-        // ElevatedButton(
-        //   onPressed: () {
-        //     _listOfAllTvSeriesByPageController.goToPreviousPage();
-        //   },
-        //   child: const Text('Previous page'),
-        // ),
-        // SizedBox(width: 16.0),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     _listOfAllTvSeriesByPageController.goToNextPage();
-        //   },
-        //   child: const Text('Next page'),
-        // )
       ],
     );
   }
