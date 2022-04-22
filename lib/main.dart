@@ -14,9 +14,11 @@ void main() async {
   await hiveRepository.init(directory: directory);
 
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => AppWidget(iLocalStorageRepository: hiveRepository),
-    ),
+    // DevicePreview(
+    // enabled: !kReleaseMode,
+    // builder: (context) =>
+
+    AppWidget(iLocalStorageRepository: hiveRepository),
+    // ),
   );
 }

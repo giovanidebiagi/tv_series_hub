@@ -1,7 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_series_hub/app/data/repositories/local_storage_repositories/hive_repository.dart';
 import 'package:tv_series_hub/app/data/repositories/local_storage_repositories/i_local_storage_repository.dart';
 import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_repositories/tvmaze_repository/tvmaze_repository.dart';
 import 'package:tv_series_hub/app/modules/episode/episode_page.dart';
@@ -50,10 +49,10 @@ class _AppWidgetState extends State<AppWidget> {
         ),
         ChangeNotifierProvider<TvSeriesSearchController>(
           create: (_) => TvSeriesSearchController(
-            iTvSeriesDataSourceRepository: TvmazeRepository(
-              httpService: DioService(),
-            ),
-          ),
+              iTvSeriesDataSourceRepository: TvmazeRepository(
+                httpService: DioService(),
+              ),
+              iLocalStorageRepository: widget.iLocalStorageRepository),
         ),
         ChangeNotifierProvider<TvSeriesListOfEpisodesBySeasonController>(
           create: (_) => TvSeriesListOfEpisodesBySeasonController(
