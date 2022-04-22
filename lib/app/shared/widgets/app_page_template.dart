@@ -19,9 +19,13 @@ class AppPageTemplate extends StatelessWidget {
         title: Text(pageTitle),
         actions: appBarActions,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: body,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: body,
+        ),
       ),
     );
   }

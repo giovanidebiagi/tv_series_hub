@@ -14,8 +14,6 @@ class TvSeriesPage extends StatelessWidget {
     final TvSeriesModel tvSeries =
         ModalRoute.of(context)!.settings.arguments as TvSeriesModel;
 
-    print('tvSeries.isFavorite: ${tvSeries.isFavorite}');
-
     return AppPageTemplate(
       appBarActions: [
         SetAsFavoriteButton(

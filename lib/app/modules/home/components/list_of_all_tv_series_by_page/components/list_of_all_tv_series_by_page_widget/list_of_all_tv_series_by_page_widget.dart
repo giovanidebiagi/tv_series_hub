@@ -36,59 +36,61 @@ class _ListOfAllTvSeriesByPageWidgetState
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text('All series'),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.48,
-              child:
-                  listOfAllTvSeriesByPageController.isFetchingAllTvSeriesByPage
-                      ? Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 32.0),
-                            child: const Text(
-                              'Loading...',
-                              style: TextStyle(color: Colors.white),
-                            ),
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.48,
+                child: listOfAllTvSeriesByPageController
+                        .isFetchingAllTvSeriesByPage
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 32.0),
+                          child: const Text(
+                            'Loading...',
+                            style: TextStyle(color: Colors.white),
                           ),
-                        )
-                      : FutureBuilder(
-                          future: _getListOfAllTvSeriesByPage,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(top: 32.0),
-                                child: const Text(
-                                  'Loading...',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ));
-                            } else if (listOfAllTvSeriesByPageController
-                                .listOfAllTvSeriesByPage is HttpNotFoundError) {
-                              return const Text(
-                                  'Oops! It seems data could not be retrieved from the servers. This could be temporary. Please try agina in a few moments.');
-                            } else if (listOfAllTvSeriesByPageController
-                                .listOfAllTvSeriesByPage is HttpCustomError) {
-                              return const Text(
-                                  'Please try again in a few moments.');
-                            } else if (listOfAllTvSeriesByPageController
-                                .listOfAllTvSeriesByPage is FormatException) {
-                              return const Text(
-                                  'Oops! It seems the data retrieved by the servers is broken. This could be temporary. Please try again in a few moments.');
-                            }
-
-                            return ListView.builder(
-                              itemCount: listOfAllTvSeriesByPageController
-                                  .listOfAllTvSeriesByPage.length,
-                              itemBuilder: (context, index) {
-                                return TvSeriesHomeCard(
-                                    tvSeries: listOfAllTvSeriesByPageController
-                                        .listOfAllTvSeriesByPage[index]);
-                              },
-                            );
-                          },
                         ),
+                      )
+                    : FutureBuilder(
+                        future: _getListOfAllTvSeriesByPage,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                                child: Padding(
+                              padding: const EdgeInsets.only(top: 32.0),
+                              child: const Text(
+                                'Loading...',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ));
+                          } else if (listOfAllTvSeriesByPageController
+                              .listOfAllTvSeriesByPage is HttpNotFoundError) {
+                            return const Text(
+                                'Oops! It seems data could not be retrieved from the servers. This could be temporary. Please try agina in a few moments.');
+                          } else if (listOfAllTvSeriesByPageController
+                              .listOfAllTvSeriesByPage is HttpCustomError) {
+                            return const Text(
+                                'Please try again in a few moments.');
+                          } else if (listOfAllTvSeriesByPageController
+                              .listOfAllTvSeriesByPage is FormatException) {
+                            return const Text(
+                                'Oops! It seems the data retrieved by the servers is broken. This could be temporary. Please try again in a few moments.');
+                          }
+
+                          return ListView.builder(
+                            itemCount: listOfAllTvSeriesByPageController
+                                .listOfAllTvSeriesByPage.length,
+                            itemBuilder: (context, index) {
+                              return TvSeriesHomeCard(
+                                  tvSeries: listOfAllTvSeriesByPageController
+                                      .listOfAllTvSeriesByPage[index]);
+                            },
+                          );
+                        },
+                      ),
+              ),
             ),
             SizedBox(height: 16.0),
             const TvSeriesPageNavigationWidget(),

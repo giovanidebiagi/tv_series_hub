@@ -12,14 +12,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppPageTemplate(
       pageTitle: 'TV Series Hub',
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            GoToSearchPageButton(),
-            GoToMyFavoriteTvSeriesPageButton(),
-            ListOfAllTvSeriesByPageWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          GoToSearchPageButton(),
+          GoToMyFavoriteTvSeriesPageButton(),
+          Expanded(child: ListOfAllTvSeriesByPageWidget()),
+        ],
       ),
     );
   }
