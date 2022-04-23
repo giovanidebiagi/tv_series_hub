@@ -35,7 +35,7 @@ class FoundTvSeriesListWidget extends StatelessWidget {
         } else if (tvSeriesSearchController.foundTvSeries is List &&
             tvSeriesSearchController.foundTvSeries.isEmpty) {
           return const Text(
-              'Sorry, we could not find the TV Series you are looking for');
+              'Sorry, we could not find the TV Series you are looking for.');
         } else if (tvSeriesSearchController.foundTvSeries == null) {
           return const SizedBox();
         }

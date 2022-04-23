@@ -58,6 +58,18 @@ class _PersonListOfTvSeriesWidgetState
             is FormatException) {
           return const Text(
               'Oops! It seems the data retrieved by the servers is broken. This could be temporary. Please try again in a few moments.');
+        } else if (personListOfTvSeriesController
+            .listOfPersonTvSeries.isEmpty) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: const Text(
+                'No information.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
         }
 
         return ListView.builder(

@@ -35,7 +35,7 @@ class FoundPeopleListWidget extends StatelessWidget {
         } else if (peopleSearchController.foundPeople is List &&
             peopleSearchController.foundPeople.isEmpty) {
           return const Text(
-              'Sorry, we could not find the TV Series you are looking for');
+              'Sorry, we could not find the Person you are looking for.');
         } else if (peopleSearchController.foundPeople == null) {
           return const SizedBox();
         }
