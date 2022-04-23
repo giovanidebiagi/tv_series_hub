@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:tv_series_hub/app/data/models/tv_series_episode_model.dart';
 import 'package:tv_series_hub/app/data/models/tv_series_model.dart';
 
+import '../../../models/person_model.dart';
+
 class TvmazeRepositoryUtils {
   static convertTvmazeResponseToListOfTvSeriesModel(String responseStr) {
     try {
@@ -21,7 +23,8 @@ class TvmazeRepositoryUtils {
     }
   }
 
-  static convertTvmazeSearchResponseToListOfTvSeriesModel(String responseStr) {
+  static convertTvmazeSearchTvSeriesResponseToListOfTvSeriesModel(
+      String responseStr) {
     try {
       var tvSeriesJson = jsonDecode(responseStr) as List;
 
@@ -56,6 +59,26 @@ class TvmazeRepositoryUtils {
       }
 
       return tvSeriesEpisodesList;
+    } catch (e) {
+      print('Error: $e');
+      return e;
+    }
+  }
+
+  static convertTvmazeSearchPeopleResponseToListOfPersonModel(
+      String responseStr) {
+    try {
+      var peopleJson = jsonDecode(responseStr) as List;
+
+      List<PersonModel> peopleList = [];
+
+      for (var person in peopleJson) {
+        var personData = PersonModel.fromMap(person['person']);
+
+        peopleList.add(personData);
+      }
+
+      return peopleList;
     } catch (e) {
       print('Error: $e');
       return e;

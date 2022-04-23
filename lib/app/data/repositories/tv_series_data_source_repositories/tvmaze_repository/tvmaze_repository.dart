@@ -38,7 +38,7 @@ class TvmazeRepository implements ITvSeriesDataSourceRepository {
     }
 
     return TvmazeRepositoryUtils
-        .convertTvmazeSearchResponseToListOfTvSeriesModel(_responseStr);
+        .convertTvmazeSearchTvSeriesResponseToListOfTvSeriesModel(_responseStr);
   }
 
   @override
@@ -53,5 +53,24 @@ class TvmazeRepository implements ITvSeriesDataSourceRepository {
     return TvmazeRepositoryUtils
         .convertTvMazeTvSeriesEpisodesResponseToListOfTvSeriesEpisodeModel(
             _responseStr);
+  }
+
+  @override
+  Future searchForPeople({required String personName}) async {
+    final _responseStr = await httpService.get(
+      url: '$tvmazeApiBaseUrl/search/people',
+      queryParameters: {'q': personName},
+    );
+
+    if (_responseStr is HttpError) {
+      return _responseStr;
+    }
+
+    if (_responseStr == '[]') {
+      return [];
+    }
+
+    return TvmazeRepositoryUtils
+        .convertTvmazeSearchPeopleResponseToListOfPersonModel(_responseStr);
   }
 }

@@ -4,4 +4,6 @@ abstract class ITvSeriesDataSourceRepository {
   Future searchForTvSeries({required String tvSeriesName});
 
   Future getListOfTvSeriesEpisodes({required int showId});
+
+  Future searchForPeople({required String personName});
 }

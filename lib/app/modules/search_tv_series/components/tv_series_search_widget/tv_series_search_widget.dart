@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'components/found_tv_series_widget/found_tv_series_list_widget.dart';
+import 'components/found_tv_series_list_widget/found_tv_series_list_widget.dart';
 import 'components/tv_series_search_bar.dart';
 
 class TvSeriesSearchWidget extends StatelessWidget {

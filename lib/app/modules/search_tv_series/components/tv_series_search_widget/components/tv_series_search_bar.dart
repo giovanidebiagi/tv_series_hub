@@ -29,14 +29,14 @@ class TvSeriesSearchBar extends StatelessWidget {
         ),
         SizedBox(height: 16.0),
         Consumer<TvSeriesSearchController>(
-          builder: ((context, tvSeriesSearchBarController, child) {
+          builder: ((context, tvSeriesSearchController, child) {
             return ElevatedButton.icon(
-              onPressed: !tvSeriesSearchBarController.isSearching
+              onPressed: !tvSeriesSearchController.isSearching
                   ? () async {
                       FocusManager.instance.primaryFocus?.unfocus();
 
-                      await tvSeriesSearchBarController.fetchTvSeriesByName(
-                          tvSeriesName: tvSeriesSearchBarController
+                      await tvSeriesSearchController.fetchTvSeriesByName(
+                          tvSeriesName: tvSeriesSearchController
                               .tvSeriesSearchBarTextEditingController.text);
                     }
                   : null,

@@ -17,7 +17,7 @@ class HomeTopBar extends StatelessWidget {
             child: HomeTopBarButton(
               iconData: Icons.search,
               buttonLabel: 'Search for Tv Series',
-              routeName: Routes.searchPage,
+              routeName: Routes.searchTvSeriesPage,
             ),
           ),
           VerticalDivider(
@@ -37,7 +37,7 @@ class HomeTopBar extends StatelessWidget {
             child: HomeTopBarButton(
               iconData: Icons.person_search,
               buttonLabel: 'Search for People',
-              routeName: '',
+              routeName: Routes.searchPeoplePage,
             ),
           ),
         ],

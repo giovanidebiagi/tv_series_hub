@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_series_hub/app/modules/search/components/tv_series_search_widget/components/found_tv_series_widget/components/found_tv_series_card.dart';
 import 'package:tv_series_hub/app/services/http_services/http_errors.dart';
-import '../../tv_series_search_controller.dart';
 
-class FoundTvSeriesListWidget extends StatelessWidget {
-  const FoundTvSeriesListWidget({Key? key}) : super(key: key);
+import '../../people_search_controller.dart';
+import 'components/found_person_card.dart';
+
+class FoundPeopleListWidget extends StatelessWidget {
+  const FoundPeopleListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TvSeriesSearchController>(
-      builder: ((context, tvSeriesSearchController, child) {
-        if (tvSeriesSearchController.isSearching) {
+    return Consumer<PeopleSearchController>(
+      builder: ((context, peopleSearchController, child) {
+        if (peopleSearchController.isSearching) {
           return const Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 32.0),
@@ -23,28 +24,28 @@ class FoundTvSeriesListWidget extends StatelessWidget {
           );
         }
 
-        if (tvSeriesSearchController.foundTvSeries is HttpNotFoundError) {
+        if (peopleSearchController.foundPeople is HttpNotFoundError) {
           return const Text(
               'Oops! It seems data could not be retrieved from the servers. This could be temporary. Please try agina in a few moments.');
-        } else if (tvSeriesSearchController.foundTvSeries is HttpCustomError) {
+        } else if (peopleSearchController.foundPeople is HttpCustomError) {
           return const Text('Please try again in a few moments.');
-        } else if (tvSeriesSearchController.foundTvSeries is FormatException) {
+        } else if (peopleSearchController.foundPeople is FormatException) {
           return const Text(
               'Oops! It seems the data retrieved by the servers is broken. This could be temporary. Please try again in a few moments.');
-        } else if (tvSeriesSearchController.foundTvSeries is List &&
-            tvSeriesSearchController.foundTvSeries.isEmpty) {
+        } else if (peopleSearchController.foundPeople is List &&
+            peopleSearchController.foundPeople.isEmpty) {
           return const Text(
               'Sorry, we could not find the TV Series you are looking for');
-        } else if (tvSeriesSearchController.foundTvSeries == null) {
+        } else if (peopleSearchController.foundPeople == null) {
           return const SizedBox();
         }
 
         return ListView.builder(
           shrinkWrap: true,
-          itemCount: tvSeriesSearchController.foundTvSeries.length,
+          itemCount: peopleSearchController.foundPeople.length,
           itemBuilder: (context, index) {
-            return FoundTvSeriesCard(
-                tvSeries: tvSeriesSearchController.foundTvSeries[index]);
+            return FoundPersonCard(
+                person: peopleSearchController.foundPeople[index]);
           },
         );
       }),

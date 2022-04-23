@@ -6,7 +6,9 @@ import 'package:tv_series_hub/app/data/repositories/tv_series_data_source_reposi
 import 'package:tv_series_hub/app/modules/episode/episode_page.dart';
 import 'package:tv_series_hub/app/modules/home/components/list_of_all_tv_series_by_page/list_of_all_tv_series_by_page_controller.dart';
 import 'package:tv_series_hub/app/modules/my_favorite_tv_series/my_favorite_tv_series_page.dart';
-import 'package:tv_series_hub/app/modules/search/search_page.dart';
+import 'package:tv_series_hub/app/modules/search_people/components/people_search_widget/people_search_controller.dart';
+import 'package:tv_series_hub/app/modules/search_people/search_people_page.dart';
+import 'package:tv_series_hub/app/modules/search_tv_series/search_tv_series_page.dart';
 import 'package:tv_series_hub/app/modules/tv_series/components/tv_series_list_of_episodes_by_season/tv_series_list_of_episodes_by_season_controller.dart';
 import 'package:tv_series_hub/app/modules/tv_series/tv_series_page.dart';
 import 'package:tv_series_hub/app/services/http_services/dio_service.dart';
@@ -14,7 +16,7 @@ import 'package:tv_series_hub/app/shared/app_theme.dart';
 import 'package:tv_series_hub/app/shared/controllers/favorite_tv_series_controller.dart';
 import 'package:tv_series_hub/app/shared/routes.dart';
 import 'modules/home/home_page.dart';
-import 'modules/search/components/tv_series_search_widget/tv_series_search_controller.dart';
+import 'modules/search_tv_series/components/tv_series_search_widget/tv_series_search_controller.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key, required this.iLocalStorageRepository})
@@ -65,6 +67,13 @@ class _AppWidgetState extends State<AppWidget> {
           create: (_) => FavoriteTvSeriesController(
             iLocalStorageRepository: widget.iLocalStorageRepository,
           ),
+        ),
+        ChangeNotifierProvider<PeopleSearchController>(
+          create: (_) => PeopleSearchController(
+            iTvSeriesDataSourceRepository: TvmazeRepository(
+              httpService: DioService(),
+            ),
+          ),
         )
       ],
       child: MaterialApp(
@@ -87,11 +96,12 @@ class _AppWidgetState extends State<AppWidget> {
         initialRoute: Routes.homePage,
         routes: {
           Routes.homePage: (context) => const HomePage(),
-          Routes.searchPage: (context) => const SearchPage(),
+          Routes.searchTvSeriesPage: (context) => const SearchTvSeriesPage(),
           Routes.tvSeriesPage: (context) => const TvSeriesPage(),
           Routes.episodePage: (context) => const EpisodePage(),
           Routes.myFavoriteTvSeriesPage: (context) =>
               const MyFavoriteTvSeriesPage(),
+          Routes.searchPeoplePage: (context) => const SearchPeoplePage(),
         },
       ),
     );
