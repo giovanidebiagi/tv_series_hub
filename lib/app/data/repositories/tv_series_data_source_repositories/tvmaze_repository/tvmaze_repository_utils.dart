@@ -6,6 +6,17 @@ import 'package:tv_series_hub/app/data/models/tv_series_model.dart';
 import '../../../models/person_model.dart';
 
 class TvmazeRepositoryUtils {
+  static convertTvmazeTvSeriesResponseToTvSeriesModel(String responseStr) {
+    try {
+      var tvSeriesJson = jsonDecode(responseStr);
+
+      return TvSeriesModel.fromMap(tvSeriesJson);
+    } catch (e) {
+      print('Error: $e');
+      return e;
+    }
+  }
+
   static convertTvmazeResponseToListOfTvSeriesModel(String responseStr) {
     try {
       var tvSeriesJson = jsonDecode(responseStr) as List;
@@ -83,5 +94,34 @@ class TvmazeRepositoryUtils {
       print('Error: $e');
       return e;
     }
+  }
+
+  static getPersonTvSeriesIds(String responseStr) {
+    var personTvSeriesJson = jsonDecode(responseStr) as List;
+
+    List<String> personTvSeriesIds = [];
+
+    for (var personTvSeries in personTvSeriesJson) {
+      var personTvSeriesUrl =
+          _getPersonTvSeriesUrl(personTvSeriesMap: personTvSeries);
+
+      if (personTvSeriesUrl != null) {
+        var personTvSeriesId = personTvSeriesUrl.split('/').last;
+
+        personTvSeriesIds.add(personTvSeriesId);
+      }
+    }
+
+    return personTvSeriesIds;
+  }
+
+  static String? _getPersonTvSeriesUrl({required Map personTvSeriesMap}) {
+    if (personTvSeriesMap['_links'] != null) {
+      if (personTvSeriesMap['_links']['show'] != null) {
+        return personTvSeriesMap['_links']['show']['href'];
+      }
+    }
+
+    return null;
   }
 }

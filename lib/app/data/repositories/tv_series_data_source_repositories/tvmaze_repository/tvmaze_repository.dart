@@ -73,4 +73,51 @@ class TvmazeRepository implements ITvSeriesDataSourceRepository {
     return TvmazeRepositoryUtils
         .convertTvmazeSearchPeopleResponseToListOfPersonModel(_responseStr);
   }
+
+  @override
+  Future getListOfTvSeriesByPerson({required int personId}) async {
+    var listOfTvSeriesByPerson = [];
+
+    final _responseStr = await httpService.get(
+        url: '$tvmazeApiBaseUrl/people/$personId/castcredits');
+
+    if (_responseStr is HttpError) {
+      return _responseStr;
+    }
+
+    var personTvSeriesIds =
+        TvmazeRepositoryUtils.getPersonTvSeriesIds(_responseStr);
+
+    if (personTvSeriesIds == null) {
+      return null;
+    }
+
+    for (var personTvSeriesId in personTvSeriesIds) {
+      final _personTvSeries =
+          await getTvSeriesById(tvSeriesId: personTvSeriesId);
+      if (_personTvSeries != null) {
+        listOfTvSeriesByPerson.add(_personTvSeries);
+      }
+    }
+
+    return listOfTvSeriesByPerson;
+  }
+
+  @override
+  Future getTvSeriesById({required String tvSeriesId}) async {
+    final _responseStr = await httpService.get(
+      url: '$tvmazeApiBaseUrl/shows/$tvSeriesId',
+    );
+
+    if (_responseStr is HttpError) {
+      return _responseStr;
+    }
+
+    if (_responseStr == '[]') {
+      return [];
+    }
+
+    return TvmazeRepositoryUtils.convertTvmazeTvSeriesResponseToTvSeriesModel(
+        _responseStr);
+  }
 }
