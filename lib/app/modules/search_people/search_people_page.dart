@@ -8,7 +8,7 @@ class SearchPeoplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppPageTemplate(
-      pageTitle: 'Search Tv Series',
+      pageTitle: 'Search People',
       body: PeopleSearchWidget(),
     );
   }
