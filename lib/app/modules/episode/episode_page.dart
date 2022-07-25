@@ -14,18 +14,20 @@ class EpisodePage extends StatelessWidget {
 
     return AppPageTemplate(
       pageTitle: tvSeriesEpisode.name,
-      body: Column(
-        children: [
-          tvSeriesEpisode.imageUrl != null
-              ? Image.network(tvSeriesEpisode.imageUrl!)
-              : const SizedBox.shrink(),
-          SizedBox(height: 32.0),
-          EpisodeDetailsWidget(tvSeriesEpisode: tvSeriesEpisode),
-          SizedBox(height: 24.0),
-          tvSeriesEpisode.summary != null
-              ? EpisodeSummaryWidget(summary: tvSeriesEpisode.summary!)
-              : SizedBox.shrink(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            tvSeriesEpisode.imageUrl != null
+                ? Image.network(tvSeriesEpisode.imageUrl!)
+                : const SizedBox.shrink(),
+            SizedBox(height: 32.0),
+            EpisodeDetailsWidget(tvSeriesEpisode: tvSeriesEpisode),
+            SizedBox(height: 24.0),
+            tvSeriesEpisode.summary != null
+                ? EpisodeSummaryWidget(summary: tvSeriesEpisode.summary!)
+                : SizedBox.shrink(),
+          ],
+        ),
       ),
     );
   }
